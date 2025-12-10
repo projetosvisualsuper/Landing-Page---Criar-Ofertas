@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, LayoutTemplate } from 'lucide-react';
+import { Menu, X, LayoutTemplate, LogIn } from 'lucide-react';
 
 const Header: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -88,29 +88,41 @@ const Header: React.FC = () => {
 
           {/* Desktop Nav */}
           <nav className="hidden md:flex items-center gap-8">
-            {navLinks.map((link) => {
-              const isActive = activeSection === link.href.substring(1);
-              return (
-                <a 
-                  key={link.name} 
-                  href={link.href}
-                  onClick={(e) => handleNavClick(e, link.href)}
-                  className={`font-medium transition-all duration-200 ${
-                    isActive 
-                      ? 'text-brand-600 font-semibold' 
-                      : 'text-gray-600 hover:text-brand-600'
-                  }`}
-                >
-                  {link.name}
-                </a>
-              );
-            })}
-            <a 
-              href="https://criarofertas.com.br"
-              className="bg-brand-600 hover:bg-brand-700 text-white px-6 py-2.5 rounded-full font-semibold transition-all shadow-lg hover:shadow-brand-500/30 transform hover:-translate-y-0.5 cursor-pointer"
-            >
-              Criar Encarte Grátis
-            </a>
+            <div className="flex gap-8">
+              {navLinks.map((link) => {
+                const isActive = activeSection === link.href.substring(1);
+                return (
+                  <a 
+                    key={link.name} 
+                    href={link.href}
+                    onClick={(e) => handleNavClick(e, link.href)}
+                    className={`font-medium transition-all duration-200 ${
+                      isActive 
+                        ? 'text-brand-600 font-semibold' 
+                        : 'text-gray-600 hover:text-brand-600'
+                    }`}
+                  >
+                    {link.name}
+                  </a>
+                );
+              })}
+            </div>
+
+            <div className="flex items-center gap-4 pl-6 border-l border-gray-200">
+              <a 
+                href="https://criarofertas.com.br"
+                className="text-gray-600 hover:text-brand-600 font-medium flex items-center gap-2 transition-colors px-2 py-1 rounded-md hover:bg-gray-50"
+              >
+                <LogIn size={20} />
+                Entrar
+              </a>
+              <a 
+                href="https://criarofertas.com.br"
+                className="bg-brand-600 hover:bg-brand-700 text-white px-6 py-2.5 rounded-full font-semibold transition-all shadow-lg hover:shadow-brand-500/30 transform hover:-translate-y-0.5 cursor-pointer"
+              >
+                Criar Encarte Grátis
+              </a>
+            </div>
           </nav>
 
           {/* Mobile Menu Button */}
@@ -145,12 +157,22 @@ const Header: React.FC = () => {
                 </a>
               );
             })}
-            <a 
-              href="https://criarofertas.com.br"
-              className="bg-brand-600 text-white px-6 py-3 rounded-lg font-bold text-center hover:bg-brand-700 transition-colors cursor-pointer"
-            >
-              Começar Agora
-            </a>
+            
+            <div className="pt-4 border-t border-gray-100 flex flex-col gap-3">
+              <a 
+                href="https://criarofertas.com.br"
+                className="flex items-center justify-center gap-2 text-gray-700 font-bold py-3 hover:text-brand-600 transition-colors bg-gray-50 rounded-lg w-full"
+              >
+                <LogIn size={20} />
+                Entrar no Sistema
+              </a>
+              <a 
+                href="https://criarofertas.com.br"
+                className="bg-brand-600 text-white px-6 py-3 rounded-lg font-bold text-center hover:bg-brand-700 transition-colors cursor-pointer"
+              >
+                Começar Agora
+              </a>
+            </div>
           </div>
         </div>
       )}

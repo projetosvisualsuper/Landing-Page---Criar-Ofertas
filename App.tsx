@@ -1,14 +1,37 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import Features from './components/Features';
 import AiGenerator from './components/AiGenerator';
 import Pricing from './components/Pricing';
 import Footer from './components/Footer';
+import { ArrowUp } from 'lucide-react';
 
 function App() {
+  const [showBackToTop, setShowBackToTop] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 400) {
+        setShowBackToTop(true);
+      } else {
+        setShowBackToTop(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  };
+
   return (
-    <div className="min-h-screen bg-white font-sans antialiased selection:bg-brand-200 selection:text-brand-900">
+    <div className="min-h-screen bg-white font-sans antialiased selection:bg-brand-200 selection:text-brand-900 relative">
       <Header />
       <main>
         <Hero />
@@ -81,6 +104,17 @@ function App() {
         </section>
       </main>
       <Footer />
+
+      {/* Back to Top Button */}
+      <button
+        onClick={scrollToTop}
+        className={`fixed bottom-6 right-6 p-3 md:p-4 bg-brand-600 hover:bg-brand-700 text-white rounded-full shadow-2xl shadow-brand-900/20 transition-all duration-300 z-40 flex items-center justify-center border-2 border-white/20 hover:-translate-y-1 ${
+          showBackToTop ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible translate-y-10'
+        }`}
+        aria-label="Voltar ao topo"
+      >
+        <ArrowUp size={24} />
+      </button>
     </div>
   );
 }
